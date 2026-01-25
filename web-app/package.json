@@ -55,6 +55,8 @@
     "@feathersjs/socketio": "5.0.37",
     "@feathersjs/transport-commons": "5.0.37",
     "@feathersjs/typebox": "5.0.37",
+    "config": "^3.3.12",
+    "dotenv": "^17.2.3",
     "mongodb": "6.19.0",
     "winston": "^3.19.0"
   },
@@ -72,5 +74,10 @@
     "shx": "0.4.0",
     "ts-node": "^10.9.2",
     "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "config": "3.3.12"
+    }
   }
 }
