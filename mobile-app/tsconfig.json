@@ -12,6 +12,8 @@
     "**/*.ts",
     "**/*.tsx",
     "mobile-app/.expo/types/**/*.ts",
-    "mobile-app/expo-env.d.ts"
+    "mobile-app/expo-env.d.ts",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
   ]
 }

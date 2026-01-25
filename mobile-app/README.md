@@ -3,7 +3,7 @@
 > It contains two apps 
 
 1. A React Native boilerplate app that lets you export your contacts as json from your iPhone.
-2. A React Web app that lets you import these contacts and manage your network.
+2. A Feathers app that lets you import these contacts and manage your network.
 
 ## Usage
 
@@ -23,7 +23,7 @@ Download Expo GO: https://expo.dev/go
 
 ### 1.3 
 
-Scan the QR code from the dev server and open the mobile app on your phone.
+Scan the QR code from the dev server and open the mobile app on your phone. Accept the "allow access contacts"
 
 ### 1.4 
 
