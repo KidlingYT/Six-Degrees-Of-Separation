@@ -13,19 +13,19 @@ This project uses [Feathers](http://feathersjs.com). An open source framework fo
 
     ```
     cd path/to/web-app
-    npm install
+    pnpm install
     ```
 
 3. Start your app
 
     ```
-    npm run compile # Compile TypeScript source
-    npm start
+    pnpm run compile # Compile TypeScript source
+    pnpm start
     ```
 
 ## Testing
 
-Run `npm test` and all your tests in the `test/` directory will be run.
+Run `pnpm test` and all your tests in the `test/` directory will be run.
 
 ## Scaffolding
 
