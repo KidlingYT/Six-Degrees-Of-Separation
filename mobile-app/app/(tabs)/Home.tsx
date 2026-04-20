@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
 
-export default function App() {
+export default function Home() {
     const [contacts, setContacts] = useState<Contacts.Contact[]>();
     const [status, setStatus] = useState<string>("Loading...");
 
@@ -50,23 +50,25 @@ export default function App() {
     };
 
     return (
-        <View style={styles.container}>
-            <Text>{status}</Text>
-            <Button title="Export Contacts" onPress={exportContacts} />
-            <Link href="/People" asChild>
-                <Button title="View People" />
-            </Link>
-            <Link href="/About" asChild>
-                <Button title="Go to About" />
-            </Link>
+        <View style={styles.wrapper}>
+            <View style={styles.container}>
+                <Text>{status}</Text>
+                <Button title="Export Contacts" onPress={exportContacts} />
+                <Link href="/People" asChild>
+                    <Button title="View People" />
+                </Link>
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    wrapper: {
         flex: 1,
         backgroundColor: "#fff",
+    },
+    container: {
+        flex: 1,
         alignItems: "center",
         justifyContent: "center",
         gap: 16,

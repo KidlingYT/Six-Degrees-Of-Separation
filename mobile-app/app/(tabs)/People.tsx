@@ -8,6 +8,8 @@ import {
     SafeAreaView,
     ActivityIndicator,
 } from "react-native";
+import { Searchbar } from 'react-native-paper';
+// import { Host } from "@expo/ui/jetpack-compose";
 
 type ContactItem = {
     id: string;
@@ -20,6 +22,7 @@ export default function People() {
     const [contacts, setContacts] = useState<ContactItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [status, setStatus] = useState<string>("");
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         loadContacts();
@@ -38,7 +41,7 @@ export default function People() {
                     ],
                 });
 
-                const formattedContacts: ContactItem[] = data.map(
+                let formattedContacts: ContactItem[] = data.map(
                     (contact) => ({
                         id: contact.id,
                         name: contact.name || "Unknown",
@@ -52,6 +55,12 @@ export default function People() {
                 // Sort alphabetically by name
                 formattedContacts.sort((a, b) => a.name.localeCompare(b.name));
 
+                if (searchQuery.trim() !== "") {
+                    const lowerQuery = searchQuery.toLowerCase();
+                    formattedContacts = formattedContacts.filter((contact) =>
+                        contact.name.toLowerCase().includes(lowerQuery)
+                    );
+                }
                 setContacts(formattedContacts);
                 setStatus(`Loaded ${formattedContacts.length} contacts`);
             } else {
@@ -91,7 +100,7 @@ export default function People() {
     if (loading) {
         return (
             <View style={styles.centerContainer}>
-                <ActivityIndicator size="large" color="#007AFF" />
+
                 <Text style={styles.loadingText}>Loading contacts...</Text>
             </View>
         );
@@ -100,9 +109,17 @@ export default function People() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.title}>People</Text>
+                <Text style={styles.title}>People </Text>
                 <Text style={styles.subtitle}>{status}</Text>
             </View>
+                <Searchbar
+                    style={{ backgroundColor: "#FFFFFF" }}
+                    placeholder="Search"
+                    onChangeText={setSearchQuery}
+                    onSubmitEditing={loadContacts}
+                    value={searchQuery}
+                    mode="view"
+                />
             {contacts.length === 0 ? (
                 <View style={styles.centerContainer}>
                     <Text style={styles.emptyText}>No contacts found</Text>
