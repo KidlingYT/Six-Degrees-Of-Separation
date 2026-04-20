@@ -4,6 +4,7 @@ import * as Sharing from "expo-sharing";
 import { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
+import TestButton from "./components/TestButton";
 
 export default function App() {
     const [contacts, setContacts] = useState<Contacts.Contact[]>();

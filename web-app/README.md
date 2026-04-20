@@ -23,6 +23,12 @@ This project uses [Feathers](http://feathersjs.com). An open source framework fo
     pnpm start
     ```
 
+4. Start MongoDB
+
+```
+docker run -d -p 27017:27017 --name mongo mongo:7
+```
+
 ## Testing
 
 Run `pnpm test` and all your tests in the `test/` directory will be run.
