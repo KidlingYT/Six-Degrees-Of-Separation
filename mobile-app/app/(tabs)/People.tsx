@@ -13,6 +13,7 @@ import {
     TextInput,
     ScrollView,
 } from "react-native";
+import { Searchbar } from "react-native-paper";
 import {
     insertContact,
     loadSavedContacts,
@@ -38,6 +39,7 @@ export default function People() {
     const [activeTag, setActiveTag] = useState<string | null>(null);
     const [tagTarget, setTagTarget] = useState<ContactItem | null>(null);
     const [tagInput, setTagInput] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         loadContacts();
@@ -153,10 +155,12 @@ export default function People() {
 
     const visibleContacts = useMemo(() => {
         if (!activeTag) return contacts;
-        return contacts.filter((c) =>
-            savedByApple.get(c.id)?.tags.includes(activeTag),
+        return contacts.filter(
+            (c) =>
+                savedByApple.get(c.id)?.tags.includes(activeTag) &&
+                c.name.includes(searchQuery),
         );
-    }, [contacts, savedByApple, activeTag]);
+    }, [contacts, savedByApple, activeTag, searchQuery]);
 
     const renderContact = ({ item }: { item: ContactItem }) => {
         const saved = savedByApple.get(item.id);
@@ -169,6 +173,7 @@ export default function People() {
                         {item.name.charAt(0).toUpperCase()}
                     </Text>
                 </View>
+
                 <View style={styles.contactInfo}>
                     <Text style={styles.contactName}>{item.name}</Text>
                     {item.phoneNumbers && item.phoneNumbers.length > 0 && (
@@ -230,6 +235,7 @@ export default function People() {
             <View style={styles.header}>
                 <Text style={styles.title}>People</Text>
                 <Text style={styles.subtitle}>{status}</Text>
+
                 {allTags.length > 0 && (
                     <ScrollView
                         horizontal
@@ -277,6 +283,14 @@ export default function People() {
                     </ScrollView>
                 )}
             </View>
+            <Searchbar
+                style={{ backgroundColor: "#FFFFFF" }}
+                placeholder="Search"
+                onChangeText={setSearchQuery}
+                onSubmitEditing={loadContacts}
+                value={searchQuery}
+                mode="view"
+            />
             {visibleContacts.length === 0 ? (
                 <View style={styles.centerContainer}>
                     <Text style={styles.emptyText}>
