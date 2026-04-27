@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { Searchbar } from "react-native-paper";
 import {
+    autoSaveNewContacts,
     insertContact,
     loadSavedContacts,
     updateContactTags,
@@ -75,10 +76,13 @@ export default function People() {
 
             try {
                 const saved = await loadSavedContacts();
-                console.log("hi")
-                setSavedByApple(saved);
+                const allSaved = await autoSaveNewContacts(
+                    formatted.map((c) => c.id),
+                    saved,
+                );
+                setSavedByApple(allSaved);
                 setStatus(
-                    `Loaded ${formatted.length} contacts · ${saved.size} saved`,
+                    `Loaded ${formatted.length} contacts · ${allSaved.size} saved`,
                 );
             } catch (e: any) {
                 setStatus(

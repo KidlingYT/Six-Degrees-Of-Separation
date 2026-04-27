@@ -82,6 +82,33 @@ export async function loadSavedContacts(
   return out
 }
 
+/**
+ * Inserts every Apple contact not already in `alreadySaved`, then returns
+ * the merged map. Uses allSettled so one failure (e.g. a race-condition
+ * duplicate) doesn't abort the rest.
+ */
+export async function autoSaveNewContacts(
+  appleContactIds: string[],
+  alreadySaved: Map<string, SavedContactSummary>,
+  userId: string = CURRENT_USER_ID
+): Promise<Map<string, SavedContactSummary>> {
+  const unsaved = appleContactIds.filter((id) => !alreadySaved.has(id))
+  if (unsaved.length === 0) return alreadySaved
+
+  const results = await Promise.allSettled(
+    unsaved.map((id) => insertContact({ appleContactId: id, userId }))
+  )
+
+  const next = new Map(alreadySaved)
+  results.forEach((result, i) => {
+    if (result.status === 'fulfilled') {
+      const doc = result.value
+      next.set(unsaved[i], { _id: doc._id, tags: doc.tags })
+    }
+  })
+  return next
+}
+
 export async function updateContactTags(id: string, tags: string[]): Promise<ContactMetadata> {
   const res = await fetch(`${API_BASE_URL}/contact-metadata/${id}`, {
     method: 'PATCH',
