@@ -5,7 +5,6 @@ import {
     Text,
     StyleSheet,
     FlatList,
-    SafeAreaView,
     ActivityIndicator,
     TouchableOpacity,
     Alert,
@@ -72,9 +71,11 @@ export default function People() {
             formatted.sort((a, b) => a.name.localeCompare(b.name));
             setContacts(formatted);
             setStatus(`Loaded ${formatted.length} contacts`);
+            // // Show contacts immediately; backend metadata sync can finish later.
 
             try {
                 const saved = await loadSavedContacts();
+                console.log("hi")
                 setSavedByApple(saved);
                 setStatus(
                     `Loaded ${formatted.length} contacts · ${saved.size} saved`,
@@ -154,7 +155,7 @@ export default function People() {
     }, [savedByApple]);
 
     const visibleContacts = useMemo(() => {
-        if (!activeTag) return contacts;
+        if (!activeTag) return contacts.filter((c) => c.name.includes(searchQuery));
         return contacts.filter(
             (c) =>
                 savedByApple.get(c.id)?.tags.includes(activeTag) &&
@@ -223,18 +224,19 @@ export default function People() {
 
     if (loading) {
         return (
-            <View style={styles.centerContainer}>
-                <ActivityIndicator size="large" color="#007AFF" />
-                <Text style={styles.loadingText}>Loading contacts...</Text>
-            </View>
+
+                <View style={styles.centerContainer}>
+                    <ActivityIndicator size="large" color="#007AFF" />
+                    <Text style={styles.loadingText}>Loading contacts...</Text>
+                </View>
         );
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.title}>People</Text>
-                <Text style={styles.subtitle}>{status}</Text>
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.title}>People</Text>
+                    <Text style={styles.subtitle}>{status}</Text>
 
                 {allTags.length > 0 && (
                     <ScrollView
@@ -358,7 +360,7 @@ export default function People() {
                     </View>
                 </View>
             </Modal>
-        </SafeAreaView>
+        </View>
     );
 }
 

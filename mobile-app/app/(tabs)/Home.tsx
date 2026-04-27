@@ -50,15 +50,15 @@ export default function Home() {
     };
 
     return (
-        <View style={styles.wrapper}>
-            <View style={styles.container}>
-                <Text>{status}</Text>
-                <Button title="Export Contacts" onPress={exportContacts} />
-                <Link href="/People" asChild>
-                    <Button title="View People" />
-                </Link>
+            <View style={styles.wrapper}>
+                <View style={styles.container}>
+                    <Text>{status}</Text>
+                    <Button title="Export Contacts" onPress={exportContacts} />
+                    <Link href="/People" asChild>
+                        <Button title="View People" />
+                    </Link>
+                </View>
             </View>
-        </View>
     );
 }
 

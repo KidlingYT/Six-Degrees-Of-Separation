@@ -18,11 +18,17 @@ npm install
 npx expo start --tunnel
 
 # To enable the phone to hit the feathers service
-$env:EXPO_PUBLIC_API_URL="your-computer-ip:3030"; npx expo start --tunnel
+$env:EXPO_PUBLIC_API_URL="your-ip:3030"; npx expo start --tunnel
 
 # Get the computer ip
 ipconfig # find IPV4 section
 ```
+
+Mac:
+```bash
+ipconfig getifaddr en0
+```
+
 
 ### 1.2
 
