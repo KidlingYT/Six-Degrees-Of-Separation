@@ -32,7 +32,8 @@
           "contactsPermission": "Allow $(PRODUCT_NAME) to access your contacts."
         }
       ]
-    ],
+      ]
+    ,
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
