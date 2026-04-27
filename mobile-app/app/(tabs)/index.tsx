@@ -1,16 +1,16 @@
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 export default function About() {
     return (
-        <SafeAreaView style={styles.wrapper}>
-            <View style={styles.container}>
-                <Text style={styles.title}>About</Text>
-                <Text style={styles.text}>
-                    A React Native boilerplate app that lets you export your
-                    contacts as json from your iPhone.
-                </Text>
+            <View style={styles.wrapper}>
+                <View style={styles.container}>
+                    <Text style={styles.title}>About</Text>
+                    <Text style={styles.text}>
+                        A React Native boilerplate app that lets you export your
+                        contacts as json from your iPhone.
+                    </Text>
+                </View>
             </View>
-        </SafeAreaView>
     );
 }
 
